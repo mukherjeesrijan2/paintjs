@@ -1,0 +1,35 @@
+let highlighted = null;
+
+
+function isWithinLine(x, y, line) {
+
+  return dist(x, y, line.x1, line.y1) + dist(x, y, line.x2, line.y2) <=
+          dist(line.x1, line.y1, line.x2, line.y2) + 0.2
+
+}
+
+function highlight() {
+  let obj = null;
+
+  if (pen.down == false) {
+    for (let line of drawing.lines) {
+      if (isWithinLine(pen.x, pen.y, line)) {
+        obj = line;
+        break;
+      }
+    }
+
+
+    if (obj != null) {
+      push()
+      strokeWeight(obj.strokeWeight);
+      stroke(100, 100, 255);
+      line(obj.x1, obj.y1, obj.x2, obj.y2);
+      pop()
+
+    }
+
+    highlighted = obj;
+  }
+
+}
